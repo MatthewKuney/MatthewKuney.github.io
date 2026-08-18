@@ -111,11 +111,6 @@
     background:
       repeating-linear-gradient(135deg, #232528, #232528 8px, #1c1e21 8px, #1c1e21 16px);
   }
-  /* Headshot: swap the url() path to your actual file, then tune zoom (background-size)
-     and position (background-position: left% top%) to taste.
-     - background-size: 100% = no zoom, 200% = 2x zoom, etc.
-     - background-position first value = horizontal (0% left, 100% right)
-     - background-position second value = vertical (0% top, 100% bottom) */
   .tb-photo.photo-fill {
     background-image: url('images/CoverPhoto.JPG');
     background-size: 490%;
@@ -147,6 +142,22 @@
     font-size: 16px;
     max-width: 46ch;
   }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: #17181a;
+    padding: 10px 16px;
+    border-radius: var(--radius);
+    margin-top: 20px;
+    transition: background 0.15s ease;
+  }
+  .btn-primary:hover { background: #ff8256; }
   .tb-status {
     padding: 32px;
     display: flex;
@@ -161,7 +172,7 @@
 
   .tb-fields {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
   .tb-field {
     padding: 16px 20px;
@@ -224,130 +235,152 @@
   }
   .about-text strong { color: var(--text); font-weight: 500; }
 
-  /* ---------- PROJECTS ---------- */
-  .project {
+  /* ---------- PROJECT CARDS (HOMEPAGE) ---------- */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+  .project-card {
     border: 1px solid var(--line);
     background: var(--bg-raised);
-    margin-bottom: 24px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, transform 0.15s ease;
     opacity: 0;
     transform: translateY(14px);
-    transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.2s ease;
+    animation: fadeInUp 0.6s ease forwards;
   }
-  .project.in-view { opacity: 1; transform: translateY(0); }
-  .project:hover { border-color: var(--line-bright); }
-
-  .project-grid {
-    display: grid;
-    grid-template-columns: 280px 1fr;
+  .project-card:nth-child(1) { animation-delay: 0.1s; }
+  .project-card:nth-child(2) { animation-delay: 0.2s; }
+  .project-card:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes fadeInUp {
+    to { opacity: 1; transform: translateY(0); }
   }
-  @media (max-width: 700px) {
-    .project-grid { grid-template-columns: 1fr; }
-  }
-
-  .project-media {
+  .project-card:hover { border-color: var(--line-bright); transform: translateY(-2px); }
+  .project-card-img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
     background:
       repeating-linear-gradient(135deg, #232528, #232528 8px, #1c1e21 8px, #1c1e21 16px);
-    border-right: 1px solid var(--line);
-    min-height: 190px;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    padding: 20px;
+    overflow: hidden;
   }
-  @media (max-width: 700px) {
-    .project-media { border-right: none; border-bottom: 1px solid var(--line); }
-  }
-  .project-media .placeholder-text {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.05em;
-    color: var(--text-faint);
-    line-height: 1.7;
-  }
-  .project-media img {
+  .project-card-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
   }
-
-  .project-body { padding: 26px 28px; }
-  .project-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 10px;
-  }
-  .project-index {
+  .project-card-img .placeholder {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
-    color: var(--accent);
-    letter-spacing: 0.08em;
+    color: var(--text-faint);
+    text-align: center;
+    line-height: 1.6;
   }
-  .project-date {
+  .project-card-body {
+    padding: 22px;
+  }
+  .project-card-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  .project-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .project-card-date {
+    font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     color: var(--text-faint);
     letter-spacing: 0.06em;
   }
-  .project-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 600;
-    font-size: 20px;
-    margin-bottom: 12px;
-  }
-  .project-desc {
+  .project-card-desc {
     color: var(--text-dim);
-    font-size: 14.5px;
-    margin-bottom: 18px;
-    max-width: 56ch;
+    font-size: 14px;
+    margin-bottom: 14px;
+    line-height: 1.5;
   }
-  .project-tags {
+  .project-card-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
   }
   .tag {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
+    font-size: 10px;
     letter-spacing: 0.04em;
     color: var(--teal);
     border: 1px solid rgba(92, 184, 168, 0.35);
-    padding: 4px 9px;
+    padding: 4px 8px;
     border-radius: var(--radius);
   }
 
-  /* ---------- PROJECT LINKS (assembly, video, repo, etc) ---------- */
-  .project-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 16px;
+  /* ---------- MODAL ---------- */
+  .modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 10, 11, 0.94);
+    z-index: 200;
+    display: none;
+    overflow-y: auto;
+    padding: 40px 20px;
   }
-  .project-link {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.03em;
-    color: var(--text);
+  .modal.open { display: block; }
+  .modal-content {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--bg-raised);
+    border: 1px solid var(--line-bright);
+  }
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 28px;
+    border-bottom: 1px solid var(--line-bright);
+  }
+  .modal-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 28px;
+  }
+  .modal-close {
     background: transparent;
     border: 1px solid var(--line-bright);
-    padding: 7px 12px;
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 8px 12px;
     border-radius: var(--radius);
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
     transition: border-color 0.15s ease, color 0.15s ease;
   }
-  .project-link:hover { border-color: var(--accent); color: var(--accent); }
-
-  /* ---------- MEDIA GALLERY (multiple photos / video thumbs) ---------- */
-  .media-grid {
+  .modal-close:hover { border-color: var(--accent); color: var(--accent); }
+  .modal-body {
+    padding: 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  @media (max-width: 700px) {
+    .modal-body { grid-template-columns: 1fr; }
+  }
+  .modal-left { }
+  .modal-right { }
+  .modal-gallery {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2px;
     background: var(--line);
+    margin-bottom: 20px;
   }
-  .media-thumb {
+  .modal-gallery-thumb {
     position: relative;
     border: none;
     padding: 0;
@@ -360,30 +393,28 @@
     justify-content: center;
     overflow: hidden;
   }
-  .media-thumb img,
-  .media-thumb video {
+  .modal-gallery-thumb img,
+  .modal-gallery-thumb video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
   }
-  .media-thumb .placeholder-text {
+  .modal-gallery-thumb .placeholder {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 9.5px;
-    letter-spacing: 0.04em;
+    font-size: 9px;
     color: var(--text-faint);
-    line-height: 1.6;
-    padding: 6px;
     text-align: center;
+    line-height: 1.4;
   }
-  .media-thumb .play-badge {
+  .modal-gallery-thumb .play-badge {
     position: absolute;
     inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .media-thumb .play-badge::after {
+  .modal-gallery-thumb .play-badge::after {
     content: "";
     width: 0;
     height: 0;
@@ -393,12 +424,44 @@
     filter: drop-shadow(0 0 4px rgba(0,0,0,0.6));
   }
 
-  /* ---------- LIGHTBOX ---------- */
+  .modal-desc {
+    color: var(--text-dim);
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+  .modal-desc strong { color: var(--text); }
+  .modal-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  .modal-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .modal-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    color: var(--text);
+    background: transparent;
+    border: 1px solid var(--line-bright);
+    padding: 10px 14px;
+    border-radius: var(--radius);
+    text-align: center;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .modal-link:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ---------- LIGHTBOX (for modal gallery) ---------- */
   .lightbox {
     position: fixed;
     inset: 0;
     background: rgba(10, 10, 11, 0.94);
-    z-index: 200;
+    z-index: 300;
     display: none;
     align-items: center;
     justify-content: center;
@@ -444,78 +507,11 @@
   .lightbox-close { top: 24px; right: 28px; }
   .lightbox-prev { top: 50%; left: 24px; transform: translateY(-50%); }
   .lightbox-next { top: 50%; right: 24px; transform: translateY(-50%); }
-  @media (max-width: 640px) {
-    .lightbox { padding: 20px; }
-    .lightbox-prev { left: 8px; }
-    .lightbox-next { right: 8px; }
-  }
 
-  /* ---------- PRIMARY BUTTON (resume) ---------- */
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12.5px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    background: var(--accent);
-    color: #17181a;
-    padding: 10px 16px;
-    border-radius: var(--radius);
-    margin-top: 20px;
-    transition: background 0.15s ease;
-  }
-  .btn-primary:hover { background: #ff8256; }
-
-  /* ---------- CERTIFICATIONS ---------- */
-  .cert-list { border: 1px solid var(--line); }
-  .cert-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 18px 22px;
-    border-bottom: 1px solid var(--line);
-    background: var(--bg-raised);
-  }
-  .cert-item:last-child { border-bottom: none; }
-  .cert-name {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 500;
-    font-size: 15.5px;
-  }
-  .cert-issuer {
-    font-size: 11.5px;
-    color: var(--text-faint);
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    margin-top: 4px;
-  }
-  .cert-right {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    flex-shrink: 0;
-  }
-  .cert-status {
-    font-size: 10.5px;
-    letter-spacing: 0.08em;
-    padding: 5px 10px;
-    border-radius: var(--radius);
-    white-space: nowrap;
-  }
-  .cert-status.in-progress {
-    color: var(--accent);
-    border: 1px solid rgba(255, 106, 57, 0.4);
-  }
-  .cert-status.earned {
-    color: var(--teal);
-    border: 1px solid rgba(92, 184, 168, 0.4);
-  }
+  /* ---------- CONTACT ---------- */
   .contact-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     border: 1px solid var(--line);
   }
   @media (max-width: 600px) { .contact-grid { grid-template-columns: 1fr; } }
@@ -526,7 +522,7 @@
     transition: background 0.15s ease;
   }
   .contact-item:hover { background: var(--bg-raised); }
-  .contact-item:nth-child(2n) { border-right: none; }
+  .contact-item:nth-child(3n) { border-right: none; }
   .contact-item .mono {
     font-size: 10.5px;
     letter-spacing: 0.1em;
@@ -560,9 +556,7 @@
     <nav class="nav-links">
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
-      <!-- <a href="#certifications">Certifications</a> -->
       <a href="#contact">Contact</a>
-      <!-- Point href at your actual resume PDF once it's in the repo, e.g. resume.pdf -->
       <a href="#" target="_blank" rel="noopener">Resume ↗</a>
     </nav>
   </div>
@@ -579,7 +573,6 @@
           <div class="tb-label mono">// Engineering Portfolio</div>
           <h1 class="tb-name">Matthew Kuney</h1>
           <p class="tb-tagline">Mechanical Engineering student interested in robotics and manufacturing.</p>
-          <!-- Point href at your resume PDF once it's uploaded to the repo, e.g. resume.pdf -->
           <a class="btn-primary" href="#" target="_blank" rel="noopener">Download Resume ↗</a>
         </div>
         <div class="tb-status">
@@ -601,10 +594,6 @@
           <a href="mailto:mjk7756@psu.edu">mjk7756@psu.edu</a>
         </div>
         <div class="tb-field">
-          <span class="mono">GitHub</span>
-          <a href="https://github.com/MatthewKuney" target="_blank" rel="noopener">MatthewKuney</a>
-        </div>
-        <div class="tb-field">
           <span class="mono">LinkedIn</span>
           <a href="https://www.linkedin.com/in/matthew-kuney-19a903258" target="_blank" rel="noopener">in/matthew-kuney</a>
         </div>
@@ -622,10 +611,8 @@
     <p class="about-text">
       I'm an incoming Mechanical Engineering freshman at Penn State who likes building things
       that move — <strong>3D-printed mechanisms, welded sheet metal, and small electronics</strong>
-      brought together into working hardware. Outside of class, most of my learning happens in
-      the garage: taking things apart, modeling them in CAD, and rebuilding them better. The
-      projects below are a mix of independent builds — more are on the way as I get further
-      into my degree.
+      brought together into working hardware. Click any project below to see the full details,
+      photos, videos, and CAD assemblies.
     </p>
   </section>
 
@@ -636,171 +623,79 @@
       <h2 class="section-title">Projects</h2>
       <div class="section-rule"></div>
     </div>
-
-    <!-- PROJECT 1 -->
-    <article class="project">
-      <div class="project-grid">
-        <div class="media-grid" data-group="3">
-          <button class="media-thumb" data-type="image" data-src="" data-caption="Finished robot">
-            <span class="placeholder-text">PHOTO<br>pnp-1.jpg</span>
-          </button>
-          <button class="media-thumb" data-type="image" data-src="" data-caption="Welded chassis">
-            <span class="placeholder-text">PHOTO<br>pnp-2.jpg</span>
-          </button>
-          <button class="media-thumb" data-type="image" data-src="" data-caption="Gripper mechanism CAD">
-            <span class="placeholder-text">CAD<br>pnp-cad.jpg</span>
-          </button>
-          <button class="media-thumb" data-type="video" data-src="" data-caption="Pick-and-place demo run">
-            <span class="placeholder-text">VIDEO<br>pnp-demo.mp4</span>
-            <span class="play-badge"></span>
-          </button>
+    <div class="projects-grid">
+      
+      <!-- PROJECT 1: ROBOT -->
+      <div class="project-card" data-project="robot">
+        <div class="project-card-img">
+          <!-- Replace placeholder with: <img src="images/pnp-thumb.jpg" alt="Drone-controlled robot"> -->
+          <span class="placeholder">PHOTO<br>pnp-thumb.jpg</span>
         </div>
-        <div class="project-body">
-          <div class="project-meta">
-            <span class="project-index mono">PRJ.01</span>
-            <!-- Edit this to the actual month/year you built it -->
-            <span class="project-date mono">MM/YYYY</span>
+        <div class="project-card-body">
+          <div class="project-card-meta">
+            <h3 class="project-card-title">Pick-and-Place Robot</h3>
+            <span class="project-card-date">MM/YYYY</span>
           </div>
-          <h3 class="project-title">Drone-Controlled Pick-and-Place Robot</h3>
-          <p class="project-desc">
-            Designed and built from scratch: chassis cut and welded from sheet metal, wiring
-            and power built around an Arduino, buck converter, and battery. Two rear-wheel drive
-            motors and two servos — one for arm movement, one for a custom-designed, 3D-printed
-            gripper — all operated live through a drone controller.
+          <p class="project-card-desc">
+            Drone-controller-operated robot with welded sheet metal chassis, Arduino wiring, and custom 3D-printed gripper.
           </p>
-          <div class="project-tags">
+          <div class="project-card-tags">
             <span class="tag">Arduino</span>
-            <span class="tag">Sheet Metal / Welding</span>
-            <span class="tag">Servo Control</span>
+            <span class="tag">Welding</span>
             <span class="tag">3D Printing</span>
             <span class="tag">CAD</span>
-          </div>
-          <div class="project-links">
-            <a class="project-link" href="#" target="_blank" rel="noopener">View CAD Assembly ↗</a>
-            <a class="project-link" href="#" target="_blank" rel="noopener">Watch Full Video ↗</a>
           </div>
         </div>
       </div>
-    </article>
 
-    <!-- PROJECT 2 -->
-    <article class="project">
-      <div class="project-grid">
-        <div class="media-grid" data-group="2">
-          <button class="media-thumb" data-type="image" data-src="" data-caption="Full assembly">
-            <span class="placeholder-text">PHOTO<br>excavator-1.jpg</span>
-          </button>
-          <button class="media-thumb" data-type="image" data-src="" data-caption="Gear train / swivel base">
-            <span class="placeholder-text">PHOTO<br>excavator-2.jpg</span>
-          </button>
-          <button class="media-thumb" data-type="image" data-src="" data-caption="CAD exploded view">
-            <span class="placeholder-text">CAD<br>excavator-cad.jpg</span>
-          </button>
-          <button class="media-thumb" data-type="video" data-src="" data-caption="Excavator arm in motion">
-            <span class="placeholder-text">VIDEO<br>excavator-demo.mp4</span>
-            <span class="play-badge"></span>
-          </button>
+      <!-- PROJECT 2: EXCAVATOR -->
+      <div class="project-card" data-project="excavator">
+        <div class="project-card-img">
+          <!-- Replace placeholder with: <img src="images/excavator-thumb.jpg" alt="Mechanical excavator"> -->
+          <span class="placeholder">PHOTO<br>excavator-thumb.jpg</span>
         </div>
-        <div class="project-body">
-          <div class="project-meta">
-            <span class="project-index mono">PRJ.02</span>
-            <span class="project-date mono">MM/YYYY</span>
+        <div class="project-card-body">
+          <div class="project-card-meta">
+            <h3 class="project-card-title">Mechanical Excavator</h3>
+            <span class="project-card-date">MM/YYYY</span>
           </div>
-          <h3 class="project-title">Fully Mechanical Excavator Model</h3>
-          <p class="project-desc">
-            A fully mechanical (no electronics) excavator model driven entirely by springs,
-            nuts and bolts, and 3D-printed gear trains. The arm and bucket move with 3 degrees
-            of freedom, and the whole assembly swivels on its base through a bevel gear drive.
+          <p class="project-card-desc">
+            Fully mechanical excavator with 3D-printed gears, 3 DOF arm, and bevel gear swivel base.
           </p>
-          <div class="project-tags">
-            <span class="tag">CAD</span>
-            <span class="tag">3D Printing</span>
+          <div class="project-card-tags">
             <span class="tag">Gear Design</span>
-            <span class="tag">Mechanism Design</span>
-          </div>
-          <div class="project-links">
-            <a class="project-link" href="#" target="_blank" rel="noopener">View CAD Assembly ↗</a>
-            <a class="project-link" href="#" target="_blank" rel="noopener">Watch Full Video ↗</a>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- PROJECT 3 -->
-    <article class="project">
-      <div class="project-grid">
-        <div class="media-grid" data-group="1">
-          <!-- PHOTO: replace with <button class="media-thumb" data-type="image" data-src="images/speaker-1.jpg" data-caption="Finished enclosure"><img src="images/speaker-1.jpg" alt=""></button> -->
-          <button class="media-thumb" data-type="image" data-src="" data-caption="Finished speaker enclosure">
-            <span class="placeholder-text">PHOTO<br>speaker-1.jpg</span>
-          </button>
-          <button class="media-thumb" data-type="image" data-src="" data-caption="Internals / rewiring">
-            <span class="placeholder-text">PHOTO<br>speaker-2.jpg</span>
-          </button>
-          <button class="media-thumb" data-type="image" data-src="" data-caption="CAD model of housing">
-            <span class="placeholder-text">CAD<br>speaker-cad.jpg</span>
-          </button>
-          <!-- VIDEO: replace data-src with the actual video file path, e.g. videos/speaker-demo.mp4 -->
-          <button class="media-thumb" data-type="video" data-src="" data-caption="Bluetooth speaker demo">
-            <span class="placeholder-text">VIDEO<br>speaker-demo.mp4</span>
-            <span class="play-badge"></span>
-          </button>
-        </div>
-        <div class="project-body">
-          <div class="project-meta">
-            <span class="project-index mono">PRJ.03</span>
-            <span class="project-date mono">MM/YYYY</span>
-          </div>
-          <h3 class="project-title">Bluetooth Speaker Rebuild</h3>
-          <p class="project-desc">
-            Salvaged a pair of stereo speakers from a broken TV, rewired them into a standalone
-            Bluetooth system with a tone-control board, and designed and 3D printed a custom
-            enclosure to house the electronics and drivers.
-          </p>
-          <div class="project-tags">
-            <span class="tag">CAD</span>
             <span class="tag">3D Printing</span>
-            <span class="tag">Bluetooth Audio</span>
-            <span class="tag">Rewiring / Electronics</span>
-          </div>
-          <div class="project-links">
-            <!-- Point href at your Onshape/Fusion360 public link, a PDF, or wherever the assembly lives -->
-            <a class="project-link" href="#" target="_blank" rel="noopener">View CAD Assembly ↗</a>
-            <!-- If your video is on YouTube instead of self-hosted, use a link like this instead of the video thumb above -->
-            <a class="project-link" href="#" target="_blank" rel="noopener">Watch Full Video ↗</a>
+            <span class="tag">CAD</span>
+            <span class="tag">Mechanism</span>
           </div>
         </div>
       </div>
-    </article>
 
-  </section>
-
-  <!-- CERTIFICATIONS — commented out until you have one to show. To bring it back,
-       remove this comment wrapper AND uncomment the "Certifications" nav link above,
-       then bump the Contact section-num back down to 04. -->
-  <!--
-  <section class="section" id="certifications">
-    <div class="section-head">
-      <span class="section-num mono">03</span>
-      <h2 class="section-title">Certifications</h2>
-      <div class="section-rule"></div>
-    </div>
-    <div class="cert-list">
-      REPLACE-WITH-CERT-ITEM: copy the .cert-item block below to add a certification
-      <div class="cert-item">
-        <div>
-          <div class="cert-name">Fusion 360 Associate Certification</div>
-          <div class="cert-issuer mono">Autodesk</div>
+      <!-- PROJECT 3: SPEAKER -->
+      <div class="project-card" data-project="speaker">
+        <div class="project-card-img">
+          <!-- Replace placeholder with: <img src="images/speaker-thumb.jpg" alt="Bluetooth speaker"> -->
+          <span class="placeholder">PHOTO<br>speaker-thumb.jpg</span>
         </div>
-        <div class="cert-right">
-          Once earned: change class to "cert-status earned", text to "CERTIFIED", and add
-          a link like: a class="project-link" href="..." target="_blank">View Credential</a
-          <span class="cert-status in-progress mono">IN PROGRESS</span>
+        <div class="project-card-body">
+          <div class="project-card-meta">
+            <h3 class="project-card-title">Bluetooth Speaker</h3>
+            <span class="project-card-date">MM/YYYY</span>
+          </div>
+          <p class="project-card-desc">
+            Salvaged TV speakers rewired into a standalone Bluetooth system with custom 3D-printed enclosure.
+          </p>
+          <div class="project-card-tags">
+            <span class="tag">3D Printing</span>
+            <span class="tag">Electronics</span>
+            <span class="tag">CAD</span>
+            <span class="tag">Design</span>
+          </div>
         </div>
       </div>
+
     </div>
   </section>
-  -->
 
   <!-- CONTACT -->
   <section class="section" id="contact">
@@ -815,16 +710,12 @@
         <a href="mailto:kuney.matthew@gmail.com">kuney.matthew@gmail.com</a>
       </div>
       <div class="contact-item">
-        <span class="mono">LinkedIn</span>
-        <a href="https://www.linkedin.com/in/matthew-kuney-19a903258" target="_blank" rel="noopener">linkedin.com/in/matthew-kuney</a>
-      </div>
-      <div class="contact-item">
-        <span class="mono">GitHub</span>
-        <a href="https://github.com/MatthewKuney" target="_blank" rel="noopener">github.com/MatthewKuney</a>
-      </div>
-      <div class="contact-item">
         <span class="mono">School Email</span>
         <a href="mailto:mjk7756@psu.edu">mjk7756@psu.edu</a>
+      </div>
+      <div class="contact-item">
+        <span class="mono">LinkedIn</span>
+        <a href="https://www.linkedin.com/in/matthew-kuney-19a903258" target="_blank" rel="noopener">linkedin.com/in/matthew-kuney</a>
       </div>
     </div>
   </section>
@@ -835,7 +726,161 @@
   <span class="mono">&copy; <span id="year"></span> Matthew Kuney — Built with HTML &amp; CSS, hosted on GitHub Pages</span>
 </footer>
 
-<!-- LIGHTBOX (shared across all projects) -->
+<!-- PROJECT MODALS -->
+<div class="modal" id="modal-robot" data-project="robot">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 class="modal-title">Drone-Controlled Pick-and-Place Robot</h2>
+      <button class="modal-close" data-close="robot">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-left">
+        <div class="modal-gallery">
+          <button class="modal-gallery-thumb" data-type="image" data-src="" data-caption="Finished robot">
+            <span class="placeholder">PHOTO<br>pnp-1.jpg</span>
+          </button>
+          <button class="modal-gallery-thumb" data-type="image" data-src="" data-caption="Welded chassis">
+            <span class="placeholder">PHOTO<br>pnp-2.jpg</span>
+          </button>
+          <button class="modal-gallery-thumb" data-type="image" data-src="" data-caption="Gripper mechanism CAD">
+            <span class="placeholder">CAD<br>pnp-cad.jpg</span>
+          </button>
+          <button class="modal-gallery-thumb" data-type="video" data-src="" data-caption="Pick-and-place demo">
+            <span class="placeholder">VIDEO<br>pnp-demo.mp4</span>
+            <span class="play-badge"></span>
+          </button>
+        </div>
+      </div>
+      <div class="modal-right">
+        <p class="modal-desc">
+          <strong>Built from scratch:</strong> I designed and welded the entire chassis from sheet metal, hand-cut and fitted each piece. The electronics use an Arduino microcontroller with a buck converter and battery pack for power. Two brushed DC motors drive the rear wheels, and two servo motors control arm movement and the gripper — which I designed and 3D printed to grip objects without crushing them.
+        </p>
+        <p class="modal-desc">
+          <strong>Control:</strong> The robot is operated live using a standard drone controller paired to the Arduino via an RF receiver. Each joystick axis maps to a motor or servo, making it intuitive to operate even with multiple moving parts.
+        </p>
+        <p class="modal-desc">
+          <strong>What I learned:</strong> First hands-on experience with servo control, battery-powered systems, sheet metal fabrication, and managing multiple actuators from a single microcontroller. The welding alone took weeks of practice.
+        </p>
+        <div class="modal-tags">
+          <span class="tag">Arduino</span>
+          <span class="tag">Sheet Metal / Welding</span>
+          <span class="tag">Servo Control</span>
+          <span class="tag">3D Printing</span>
+          <span class="tag">CAD</span>
+          <span class="tag">RF Receiver</span>
+        </div>
+        <div class="modal-links">
+          <a class="modal-link" href="#" target="_blank" rel="noopener">View CAD Assembly ↗</a>
+          <a class="modal-link" href="#" target="_blank" rel="noopener">Watch Full Video ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal-excavator" data-project="excavator">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 class="modal-title">Fully Mechanical Excavator</h2>
+      <button class="modal-close" data-close="excavator">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-left">
+        <div class="modal-gallery">
+          <button class="modal-gallery-thumb" data-type="image" data-src="" data-caption="Full assembly">
+            <span class="placeholder">PHOTO<br>excavator-1.jpg</span>
+          </button>
+          <button class="modal-gallery-thumb" data-type="image" data-src="" data-caption="Gear train detail">
+            <span class="placeholder">PHOTO<br>excavator-2.jpg</span>
+          </button>
+          <button class="modal-gallery-thumb" data-type="image" data-src="" data-caption="CAD exploded view">
+            <span class="placeholder">CAD<br>excavator-cad.jpg</span>
+          </button>
+          <button class="modal-gallery-thumb" data-type="video" data-src="" data-caption="Arm in motion">
+            <span class="placeholder">VIDEO<br>excavator-demo.mp4</span>
+            <span class="play-badge"></span>
+          </button>
+        </div>
+      </div>
+      <div class="modal-right">
+        <p class="modal-desc">
+          <strong>Fully mechanical, no electronics:</strong> This model is entirely powered by hand-wound springs and transmitted through 3D-printed gears, nuts, bolts, and a bevel gear system. There are zero motors or servos — pure mechanical advantage.
+        </p>
+        <p class="modal-desc">
+          <strong>3 degrees of freedom:</strong> The arm can raise/lower, extend/retract, and open/close the bucket. The entire excavator swivels on its base via a bevel gear drive. Each motion is independently controllable by twisting or pulling different levers connected to the spring system.
+        </p>
+        <p class="modal-desc">
+          <strong>What I learned:</strong> Gear ratios, bevel gear geometry, spring mechanics, and how to design for assembly. This project pushed me to think about mechanical advantage in ways that electronics can mask — every motion has a cost in terms of force and travel distance.
+        </p>
+        <div class="modal-tags">
+          <span class="tag">Gear Design</span>
+          <span class="tag">Bevel Gears</span>
+          <span class="tag">3D Printing</span>
+          <span class="tag">CAD</span>
+          <span class="tag">Mechanism Design</span>
+          <span class="tag">Spring Mechanics</span>
+        </div>
+        <div class="modal-links">
+          <a class="modal-link" href="#" target="_blank" rel="noopener">View CAD Assembly ↗</a>
+          <a class="modal-link" href="#" target="_blank" rel="noopener">Watch Full Video ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal-speaker" data-project="speaker">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 class="modal-title">Bluetooth Speaker Rebuild</h2>
+      <button class="modal-close" data-close="speaker">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-left">
+        <div class="modal-gallery">
+          <button class="modal-gallery-thumb" data-type="image" data-src="" data-caption="Finished enclosure">
+            <span class="placeholder">PHOTO<br>speaker-1.jpg</span>
+          </button>
+          <button class="modal-gallery-thumb" data-type="image" data-src="" data-caption="Internals and wiring">
+            <span class="placeholder">PHOTO<br>speaker-2.jpg</span>
+          </button>
+          <button class="modal-gallery-thumb" data-type="image" data-src="" data-caption="CAD model of housing">
+            <span class="placeholder">CAD<br>speaker-cad.jpg</span>
+          </button>
+          <button class="modal-gallery-thumb" data-type="video" data-src="" data-caption="Bluetooth demo">
+            <span class="placeholder">VIDEO<br>speaker-demo.mp4</span>
+            <span class="play-badge"></span>
+          </button>
+        </div>
+      </div>
+      <div class="modal-right">
+        <p class="modal-desc">
+          <strong>Salvage + redesign:</strong> A broken flat-screen TV's speaker drivers and audio board were too good to throw away. I rewired them into a standalone Bluetooth-enabled speaker using a commercial tone-control module and power amplifier.
+        </p>
+        <p class="modal-desc">
+          <strong>Custom enclosure:</strong> Modeled the entire housing in CAD to accommodate the driver sizes, button layout, and wiring. 3D printed it in sections that slot together for assembly and future serviceability. The enclosure design also acts as an acoustic chamber to improve bass response.
+        </p>
+        <p class="modal-desc">
+          <strong>What I learned:</strong> Audio basics (driver impedance, crossovers), Bluetooth module configuration, and how to design an enclosure that's both functional and printable. This was my first serious CAD project and really showed me the value of modeling before building.
+        </p>
+        <div class="modal-tags">
+          <span class="tag">3D Printing</span>
+          <span class="tag">CAD</span>
+          <span class="tag">Electronics</span>
+          <span class="tag">Bluetooth</span>
+          <span class="tag">Audio Design</span>
+          <span class="tag">Upcycling</span>
+        </div>
+        <div class="modal-links">
+          <a class="modal-link" href="#" target="_blank" rel="noopener">View CAD Assembly ↗</a>
+          <a class="modal-link" href="#" target="_blank" rel="noopener">Watch Full Video ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX FOR MODAL GALLERY -->
 <div class="lightbox" id="lightbox">
   <button class="lightbox-close" id="lightbox-close">✕ Close</button>
   <button class="lightbox-prev" id="lightbox-prev">←</button>
@@ -847,19 +892,34 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Fade-in project cards as they scroll into view
-  const projects = document.querySelectorAll('.project');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in-view');
-        observer.unobserve(entry.target);
+  // Project card click to open modal
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const project = card.dataset.project;
+      const modal = document.getElementById(`modal-${project}`);
+      modal.classList.add('open');
+    });
+  });
+
+  // Close modal
+  document.querySelectorAll('.modal-close').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const project = btn.dataset.close;
+      const modal = document.getElementById(`modal-${project}`);
+      modal.classList.remove('open');
+    });
+  });
+
+  // Close modal when clicking outside
+  document.querySelectorAll('.modal').forEach(modal => {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('open');
       }
     });
-  }, { threshold: 0.15 });
-  projects.forEach(p => observer.observe(p));
+  });
 
-  // ---------- LIGHTBOX GALLERY ----------
+  // Gallery lightbox functionality
   const lightbox = document.getElementById('lightbox');
   const lbContent = document.getElementById('lightbox-content');
   const lbCaption = document.getElementById('lightbox-caption');
@@ -902,11 +962,12 @@
     lbContent.innerHTML = '';
   }
 
-  document.querySelectorAll('.media-thumb').forEach(thumb => {
-    thumb.addEventListener('click', () => {
-      if (!thumb.dataset.src) return; // no file added yet — placeholder, do nothing
-      const group = thumb.closest('.media-grid');
-      const groupEls = Array.from(group.querySelectorAll('.media-thumb')).filter(el => el.dataset.src);
+  document.querySelectorAll('.modal-gallery-thumb').forEach(thumb => {
+    thumb.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!thumb.dataset.src) return;
+      const gallery = thumb.closest('.modal-gallery');
+      const groupEls = Array.from(gallery.querySelectorAll('.modal-gallery-thumb')).filter(el => el.dataset.src);
       const startIndex = groupEls.indexOf(thumb);
       openLightbox(groupEls, startIndex);
     });
