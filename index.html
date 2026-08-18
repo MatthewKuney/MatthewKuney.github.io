@@ -736,7 +736,7 @@
     <div class="modal-body">
       <div class="modal-left">
         <div class="modal-gallery">
-          <button class="modal-gallery-thumb" data-type="image" data-src="" data-caption="Finished robot">
+          <button class="modal-gallery-thumb" data-type="image" data-src="images/RobotCover.PNG" data-caption="Finished robot">
             <span class="placeholder">PHOTO<br>pnp-1.jpg</span>
           </button>
           <button class="modal-gallery-thumb" data-type="image" data-src="" data-caption="Welded chassis">
@@ -753,13 +753,15 @@
       </div>
       <div class="modal-right">
         <p class="modal-desc">
-          <strong>Built from scratch:</strong> I designed and welded the entire chassis from sheet metal, hand-cut and fitted each piece. The electronics use an Arduino microcontroller with a buck converter and battery pack for power. Two brushed DC motors drive the rear wheels, and two servo motors control arm movement and the gripper — which I designed and 3D printed to grip objects without crushing them.
+          <strong>Design Challenge:</strong> I was tasked to create a robot within a 14" cube that can pick a ping pong ball from the ground, and place it in any of 9 designated spots (shown in assembly). I designed and welded the entire chassis together from sheet metal, hand-cut and fitted each piece. I then designed and printed several parts to mount electronics and an arm to the chassis.
+          The electronics use an Arduino microcontroller with a buck converter, motor controller and battery pack for power. Two brushed DC motors drive the rear wheels, and two servo motors control arm movement and the gripper — which I designed and 3D printed. With only one servo left to operate the gripper, I decided to make a three claw mechanism, driven from a part that
+           spins in the middle, and by gravity. When the claw spins in one direction, it locks the claws closed, allowing you to lift the ping ping ball without being dropped. I regretfully did not get any footage of the arm in action, however you can see it's use in the assembly.
         </p>
         <p class="modal-desc">
-          <strong>Control:</strong> The robot is operated live using a standard drone controller paired to the Arduino via an RF receiver. Each joystick axis maps to a motor or servo, making it intuitive to operate even with multiple moving parts.
+          <strong>Control:</strong> The robot is operated live using a standard drone controller paired to the Arduino via an RF receiver. I coded each joystick to map to a motor and servo. Then using a switch on the controler, I made a toggle between motor or servo control, making it intuitive to operate even with multiple moving parts.
         </p>
         <p class="modal-desc">
-          <strong>What I learned:</strong> First hands-on experience with servo control, battery-powered systems, sheet metal fabrication, and managing multiple actuators from a single microcontroller. The welding alone took weeks of practice.
+          <strong>What I learned:</strong> Hands-on experience with Arduinos, motors, servo control, battery-powered systems, sheet metal fabrication, and managing multiple actuators from a single microcontroller. This project was a great opportunity to combine my CAD, 3D printing, electronics, and fabrication skills, as well as apply mechanical design principles to create a robot capable of performing a specific task within defined constraints. 
         </p>
         <div class="modal-tags">
           <span class="tag">Arduino</span>
