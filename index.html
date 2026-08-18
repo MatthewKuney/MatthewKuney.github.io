@@ -105,23 +105,25 @@
     grid-template-columns: auto 1fr auto;
     border-bottom: 1px solid var(--line-bright);
   }
-  .tb-photo {
+ .tb-photo {
     width: 148px;
     border-right: 1px solid var(--line-bright);
     display: flex;
     align-items: center;
     justify-content: center;
-    background:
-      repeating-linear-gradient(135deg, #232528, #232528 8px, #1c1e21 8px, #1c1e21 16px);
+    background: repeating-linear-gradient(135deg, #232528, #232528 8px, #1c1e21 8px, #1c1e21 16px);
     text-align: center;
     padding: 12px;
-  }
-  .tb-photo img {
+    overflow: hidden;
+}
+.tb-photo img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: 40% 50%;
+    transform: scale(1.4);
     display: block;
-  }
+}
   .tb-photo .placeholder-text {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
@@ -583,7 +585,7 @@
       <div class="tb-top">
         <!-- Replace with: <img src="images/headshot.jpg" alt="Matthew Kuney"> -->
         <div class="tb-photo">
-           <img src="images/CoverPhoto3.JPG" alt="Matthew Kuney">
+           <img src="images/CoverPhoto.JPG" alt="Matthew Kuney">
         </div>
         <div class="tb-name-block">
           <div class="tb-label mono">// Engineering Portfolio</div>
