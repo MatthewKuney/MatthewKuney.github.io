@@ -762,6 +762,10 @@
         </div>
       </div>
       <div class="modal-right">
+         <div class="modal-links">
+          <a class="modal-link" href="https://cad.onshape.com/documents/efea007d756f8e130812a17e/w/d72a14900725609f9fccf8c8/e/96f11ac45293b4ecce0f376b?renderMode=0&uiState=6a84cad383fc30903f339bfb" target="_blank" rel="noopener">View CAD Assembly ↗</a>
+         <!-- PROJECT MODALS  <a class="modal-link" href="#" target="_blank" rel="noopener">Watch Full Video ↗</a> -->
+        </div>
         <p class="modal-desc">
           <strong>Design Challenge:</strong> I was tasked to create a robot within a 14" cube that can pick a ping pong ball from the ground, and place it in any of 9 designated spots (shown in assembly). I designed and welded the entire chassis together from sheet metal, hand-cut and fitted each piece. I then designed and printed several parts to mount electronics and an arm to the chassis.
           The electronics use an Arduino microcontroller with a buck converter, motor controller and battery pack for power. Two brushed DC motors drive the rear wheels, and two servo motors control arm movement and the gripper — which I designed and 3D printed. With only one servo left to operate the gripper, I decided to make a three claw mechanism, driven from a part that
@@ -783,10 +787,7 @@
           <span class="tag">CAD</span>
           <span class="tag">RF Receiver</span>
         </div>
-        <div class="modal-links">
-          <a class="modal-link" href="https://cad.onshape.com/documents/efea007d756f8e130812a17e/w/d72a14900725609f9fccf8c8/e/96f11ac45293b4ecce0f376b?renderMode=0&uiState=6a84cad383fc30903f339bfb" target="_blank" rel="noopener">View CAD Assembly ↗</a>
-         <!-- PROJECT MODALS  <a class="modal-link" href="#" target="_blank" rel="noopener">Watch Full Video ↗</a> -->
-        </div>
+       
       </div>
     </div>
   </div>
@@ -948,6 +949,7 @@
       video.src = item.src;
       video.controls = true;
       video.autoplay = true;
+      video.muted = true;
       lbContent.appendChild(video);
     } else {
       const img = document.createElement('img');
